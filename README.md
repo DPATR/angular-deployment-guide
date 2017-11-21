@@ -18,25 +18,29 @@ By the end of this, developers should be able to:
 
 ## Deploying to Gitub Pages
  - If you have an Angular app created using Angular CLI, deploying to Github Pages should be straightforward
+ - Our general [GitHub Pages Deployment Guide](https://git.generalassemb.ly/ga-wdi-boston/gh-pages-deployment-guide) should also be consulted for best practices
+### Get Started
 1. Create a new github repository, if you don't already have one for your application
 1. Add the remote of your new repository to your local project:
     - `git remote add origin NEW-REPO-URL.git` <-- or replace `origin` with something of your choosing`
 1. Install this npm package: https://github.com/angular-buch/angular-cli-ghpages
     - `npm i -g angular-cli-ghpages`
 1. You will have to build your project so that angular-cli-ghpages pushes your `dist/` folder to `gh-pages`. You can do this by running the following commands:
-    - ng build --prod --base-href "https://<YOUR-GITHUB-USERNAME>.github.io/<YOUR-REPO-NAME>/"` <-- don't forget that backslash
-    - angular-cli-ghpages --repo=https://github.com/<YOUR-GH-USERNAME>/<YOUR-GH-REPO-NAME>.git --no-silent  
+    - `ng build --prod --base-href "https://<YOUR-GITHUB-USERNAME>.github.io/<YOUR-REPO-NAME>/"`      - Don't forget that backslash at the end! 
+    - `angular-cli-ghpages --repo=https://github.com/<YOUR-GH-USERNAME>/<YOUR-GH-REPO-NAME>.git --no-silent`  
     - More usage and options available [here](https://github.com/angular-buch/angular-cli-ghpages)
-1. Visit your github pages url
+1. Visit your github pages url which can be found in your github repo's settings, or by convention it will be at https://<YOUR-GITHUB-USERNAME>.github.io/<YOUR-REPO-NAME>/
 1. Profit!
 
 ### Troubleshooting
 - There's no log for github pages builds, unfortunately.
-- Got 404 errors? Ensure your base href is appropriate and that the assets can be found.
+- Got 404 errors? Ensure your base href is appropriate and that the assets can be found. Check this in the browser's development tools console.
 - Nothing at your github pages URL? Check your github.com repo's settings and ensure everything went smoothly during the deploy. From the Settings page, scroll down to the bottom and there's a Github Pages section that should have a green check mark if everything went well. The github pages url is also displayed here
 
 ## Deployment on Heroku
   - This guide assumes you are deploying a static, standalone front-end Angular application that will connect to a separate back-end application somewhere on another host. Ensure you replace the `"origin"` key below with the location of your api, and ensure your proxy mountpoint, `"/api"`, is what you want.
+  - Our [Angular and Heroku Deployment Guide](https://git.generalassemb.ly/ga-wdi-boston/angular-heroku/blob/master/02-angular-and-heroku.md) should also be consulted for best practices and for how to deploy a front-end and back-end app to Heroku together within the same Heroku app.
+### Get Started
 1. `cd` into your existing Angular project, or create a new one using the Angular CLI
 1. Create your app on Heroku using `heroku create`
 1. Add a file to the root directory of your project called `static.json` with the following contents:
@@ -55,7 +59,7 @@ By the end of this, developers should be able to:
     ```
     - [More information on the static application requirements from Heroku](https://github.com/heroku/heroku-buildpack-static)
     - [More information on using a proxy to avoid CORS issues can be found here](https://m.alphasights.com/using-nginx-on-heroku-to-serve-single-page-apps-and-avoid-cors-5d013b171a45)
-1. Configure buildbacks on Heroku. From the command line in your project's directory, type:
+1. Configure buildbacks on Heroku. From the command line in your project's root directory, type:
     ```BASH
     heroku buildpacks:add --index 1 heroku/nodejs
     heroku buildpacks:add --index 2 https://github.com/heroku/heroku-buildpack-static.git
